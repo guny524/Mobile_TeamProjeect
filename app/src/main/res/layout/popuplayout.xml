@@ -2,75 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#FF7E7E"
+    android:descendantFocusability="blocksDescendants" >
+    <!--focus를 빼줘야 ListView를 custom Adapter로 만들 때 클릭 가능-->
 
-    <TableLayout
-        android:layout_width="350dp"
-        android:layout_height="47dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
+    <Button
+        android:id="@+id/btProgress"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="진행\n상황" />
 
-        android:layout_marginBottom="20dp"
-        android:background="#FF7E7E"
-        android:orientation="horizontal"
-        android:stretchColumns="*">
+    <Button
+        android:id="@+id/btHighOrder"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="상위\n순위" />
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+    <Button
+        android:id="@+id/btLowOrder"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="하위\n순위" />
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:background="#ffffff"
 
-            >
+        android:inputType="text" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="#ffffff">
-
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginBottom="20dp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="#ffffff"></LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="#ffffff"></LinearLayout>
-
-
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:layout_margin="3dp"
-                android:background="#ffffff"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
-        </TableRow>
-
-    </TableLayout>
+    <Button
+        android:id="@+id/btRemove"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="삭제" />
 
 </LinearLayout>
