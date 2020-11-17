@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#FF7E7E"
-    android:descendantFocusability="blocksDescendants" >
+    android:background="#FF7E7E">
+<!--    android:descendantFocusability="blocksDescendants" >-->
     <!--focus를 빼줘야 ListView를 custom Adapter로 만들 때 클릭 가능-->
 
     <Button
@@ -13,6 +13,8 @@
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:layout_margin="5dp"
         android:text="진행\n상황" />
 
     <Button
@@ -20,6 +22,8 @@
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:layout_margin="5dp"
         android:text="상위\n순위" />
 
     <Button
@@ -27,15 +31,17 @@
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:layout_margin="5dp"
         android:text="하위\n순위" />
 
     <EditText
         android:id="@+id/editText"
-        android:layout_height="match_parent"
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="4"
         android:background="#ffffff"
-
+        android:layout_margin="5dp"
         android:inputType="text" />
 
     <Button
@@ -43,6 +49,7 @@
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:background="#FFFFFF"
         android:text="삭제" />
 
 </LinearLayout>

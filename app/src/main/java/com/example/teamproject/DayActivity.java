@@ -6,12 +6,14 @@ import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import java.util.ArrayList;
 
@@ -43,9 +45,6 @@ public class DayActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }
         }) ;
-
-
-
 
     }
 

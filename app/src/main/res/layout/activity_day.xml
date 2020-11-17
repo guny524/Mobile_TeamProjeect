@@ -4,29 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FF7E7E"
     android:orientation="vertical"
-    tools:context=".DayActivity" >
+    tools:context=".DayActivity">
 
-        <TextView
-            android:id="@+id/tvDay"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|right"
-            android:text="2020년 10월 40일"
-            android:textSize="24sp" />
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/lvDay"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="15"/>
+                <TextView
+                    android:id="@+id/tvDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:gravity="center|right"
+                    android:text="2020년 10월 40일"
+                    android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/btAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:text="추가" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="497dp"
+                    android:orientation="vertical">
+
+                        <ListView
+                            android:id="@+id/lvDay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="332dp"
+                            android:layout_margin="20dp"
+                            android:layout_weight="15">
+
+                        </ListView>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="82dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="추가" />
+        </LinearLayout>
 
 </LinearLayout>
