@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.zip.Inflater;
@@ -29,7 +31,8 @@ import static android.app.PendingIntent.getActivity;
 import static com.example.teamproject.R.layout.popuplayout;
 
 
-public class PlannerAdapter extends ArrayAdapter<String> {
+public class PlannerAdapter extends ArrayAdapter<String> implements PopupMenu.OnMenuItemClickListener{
+
 
 //    SQLiteDatabase sqliteDB;
 //    sqliteDB = init_database();
@@ -55,13 +58,89 @@ public class PlannerAdapter extends ArrayAdapter<String> {
         TextView textView = (TextView) convertView.findViewById(R.id.editText);
         textView.setText(item);
 
+        final Button btHigh = (Button) convertView.findViewById(R.id.btHighOrder);
+        final Button btPg = (Button) convertView.findViewById(R.id.btProgress);
+
+        final View finalConvertView = convertView;
+        btHigh.setOnClickListener(new Button.OnClickListener() {
+                                      @Override
+                                      public void onClick(View view) {
+                                          PopupMenu popup = new PopupMenu(getContext(), finalConvertView);
+                                          popup.inflate(R.menu.menu_high);
+
+                                          popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                              @Override
+                                              public boolean onMenuItemClick(MenuItem menuItem) {
+
+                                                  switch (menuItem.getItemId()) {//눌러진 MenuItem의 Item Id를 얻어와 식별
+                                                      case R.id.a:
+                                                          btHigh.setText("A");
+                                                          break;
+                                                      case R.id.b:
+                                                          btHigh.setText("B");
+                                                          break;
+                                                      case R.id.c:
+                                                          btHigh.setText("C");
+                                                          break;
+                                                      case R.id.d:
+                                                          btHigh.setText("D");
+
+                                                          break;
+                                                  }
+                                                  return false;
+                                              }
+                                          });
+                                          popup.show();
+
+                                      }
+                                  });
+
+
+        btPg.setOnClickListener(new Button.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    PopupMenu popup = new PopupMenu(getContext(), finalConvertView);
+                                    popup.inflate(R.menu.menu_pg);
+
+                                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                        @Override
+                                        public boolean onMenuItemClick(MenuItem menuItem) {
+
+                                            switch (menuItem.getItemId()) {//눌러진 MenuItem의 Item Id를 얻어와 식별
+                                                case R.id.skip:
+                                                    btPg.setText("-");
+                                                    break;
+                                                case R.id.finish:
+                                                    btPg.setText("V");
+                                                    break;
+                                                case R.id.now:
+                                                    btPg.setText("*");
+                                                    break;
+                                                case R.id.next:
+                                                    btPg.setText("->");
+
+                                                    break;
+                                            }
+                                            return false;
+                                        }
+                                    });
+                                    popup.show();
+
+                                }
+                            });
 
         return convertView;
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
 
 
+        return false;
+    }
 }
+
+
 
 
 //    private void init_tables() {
