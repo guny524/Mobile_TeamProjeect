@@ -9,16 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DayActivity" android:theme="@style/AppTheme.CustomTheme">
-        </activity>
-        <activity android:name=".MonthActivity">
+        <activity android:name=".CalendarActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity android:name=".CalendarActivity"></activity>-->
+        <activity android:name=".DayActivity" android:theme="@style/AppTheme.CustomTheme"/>
     </application>
 
 </manifest>

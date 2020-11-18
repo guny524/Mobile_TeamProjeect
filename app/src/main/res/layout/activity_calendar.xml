@@ -8,27 +8,69 @@
     android:background="@color/colorWhite">
 
     <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="match_parent"
+        android:id="@+id/tvTitle"
         android:layout_height="50dp"
-        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorAccent"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:textColor="@color/colorWhite" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorRed"
+            android:text="일" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorBlack"
+            android:text="월" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorBlack"
+            android:text="화" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorBlack"
+            android:text="수" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorBlack"
+            android:text="목" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorBlack"
+            android:text="금" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorBlue"
+            android:text="토" />
+    </LinearLayout>
 
     <GridView
-        android:layout_marginTop="10dp"
-        android:id="@+id/gridview"
-        android:layout_weight="1"
+        android:id="@+id/gvContent"
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:numColumns="7"
-        android:listSelector="@color/transparent">
-    </GridView>
-
-
+        android:layout_weight="15"
+        android:listSelector="@color/transparent" />
 
 </LinearLayout>
