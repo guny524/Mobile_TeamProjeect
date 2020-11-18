@@ -42,11 +42,11 @@ public class GridAdapter extends ArrayAdapter {
         }
 
         TextView tvDay = convertView.findViewById(R.id.tvDay);
-        tvDay.setText(getItem(position));
+        tvDay.setText(this.getItem(position));
 
         //오늘 날짜 텍스트 컬러,배경 변경
         String sToday = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-        if (sToday.equals(getItem(position))) { //오늘 day 텍스트 컬러 변경
+        if (sToday.equals(this.getItem(position))) { //오늘 day 텍스트 컬러 변경
             tvDay.setTextColor(context.getResources().getColor(R.color.colorBlack));
         }else if(position % 7 == 0){
             tvDay.setTextColor(context.getResources().getColor(R.color.colorRedLite));

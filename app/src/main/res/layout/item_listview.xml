@@ -36,7 +36,7 @@
         android:text="하위\n순위" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/etContent"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"

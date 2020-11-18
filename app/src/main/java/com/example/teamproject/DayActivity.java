@@ -40,12 +40,11 @@ public class DayActivity extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                TextView textView=(TextView)findViewById(R.id.editText);
+                TextView textView=(TextView)findViewById(R.id.etContent);
                 items.add(null);
                 listView.setAdapter(adapter);
             }
         }) ;
-
     }
 
 }

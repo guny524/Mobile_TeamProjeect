@@ -58,6 +58,8 @@ public class CalendarActivity extends Activity {
             dayList.add("" + (i + 1));
         }
 
+        //다시 원래 날짜로 바꿈
+        //Calendar 객체가 싱글턴이라서...
         calendar.set(curYear, curMonth, curDay);
 
         GridView gridView = findViewById(R.id.gvContent);

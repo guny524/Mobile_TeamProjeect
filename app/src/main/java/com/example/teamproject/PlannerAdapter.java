@@ -22,6 +22,11 @@ public class PlannerAdapter extends ArrayAdapter<String> implements PopupMenu.On
         super(context, R.layout.item_listview, items);
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        return false;
+    }
+
     public View getView(int position, View convertView, ViewGroup parent) {
         final Context context = parent.getContext();
 
@@ -30,9 +35,8 @@ public class PlannerAdapter extends ArrayAdapter<String> implements PopupMenu.On
             convertView = inflater.inflate(item_listview, parent, false);
         }
 
-
-        String item = getItem(position);
-        TextView textView = (TextView) convertView.findViewById(R.id.editText);
+        String item = this.getItem(position);
+        TextView textView = (TextView) convertView.findViewById(R.id.etContent);
         textView.setText(item);
 
         final Button btHigh = (Button) convertView.findViewById(R.id.btHighOrder);
@@ -107,12 +111,5 @@ public class PlannerAdapter extends ArrayAdapter<String> implements PopupMenu.On
                             });
 
         return convertView;
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-
-
-        return false;
     }
 }
