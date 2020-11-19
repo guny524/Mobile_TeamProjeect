@@ -2,25 +2,22 @@ package com.example.teamproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class CalendarActivity extends Activity {
 
-    ArrayList<String> dayList = new ArrayList<String>();
+    ArrayList<DayData> dayList = new ArrayList<DayData>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,31 +41,33 @@ public class CalendarActivity extends Activity {
         //ArrayList<String> dayList = new ArrayList<String>(Arrays.asList("일","월","화","수","목","금","토"));
         //그냥 xml로 때려 박음
 
-        //이번달 1일 무슨요일인지 판단 calendar.set(Year,Month,Day)
-        calendar.set(curYear, curMonth - 1, 1);
-        int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
-        //1일 - 요일 매칭 시키기 위해 공백 add
-        for (int i = 1; i < dayNum; i++) {
-            dayList.add("");
-        }
+        //이번달 1일 무슨 요일인지 계산 0이 1월로 취급됨
+        calendar.set(curYear, calendar.get(Calendar.MONTH), 1);
+        final int weekday = calendar.get(Calendar.DAY_OF_WEEK)-1;
 
-        //해당 월에 표시할 일 수 구함
-        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
-        for (int i = 0; i < calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-            dayList.add("" + (i + 1));
-        }
+        //이번 달 마지막 날 계산
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)); //다시 원래 날짜로 바꿈 //Calendar 객체가 싱글턴이라서 다른데서 쓸 때 헷갈림
+        final int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        //다시 원래 날짜로 바꿈
-        //Calendar 객체가 싱글턴이라서...
-        calendar.set(curYear, curMonth, curDay);
+        DBHelper dbHelper = new DBHelper(this);
+
+        //공백 빈칸 음수에서 시작하면 그날 day랑 index 맞음
+        //일별로 DB에서 내용 받아와서 추가
+        for (int dayIndex = 1-weekday; dayIndex <= maxDay; dayIndex++) {
+            ArrayList<PlanData> plans = dbHelper.queryDay(curYear, curMonth, dayIndex);
+            if(dayIndex > 0) {
+                dayList.add(new DayData(dayIndex, plans));
+            } else {
+                dayList.add(new DayData(dayIndex, null));
+            }
+        }
 
         GridView gridView = findViewById(R.id.gvContent);
         gridView.setOnItemClickListener(new GridView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View item, int position, long id) {
                 //layout에서 descendantFocusability를 설정하지 않으면 작동 안 함
-                String data = dayList.get(position);
-
+                DayData monthData = dayList.get(position);
                 startActivity(new Intent(CalendarActivity.this, DayActivity.class));
             }
         });

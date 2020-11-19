@@ -6,13 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBHelper extends SQLiteOpenHelper {
+import java.util.ArrayList;
 
-    private String[] projection = {"_id", "year", "month", "day", "content", "firstOrder", "secondOrder", "progress"};
+public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context){
         super(context, "infoDB.db", null, 1);
     }
+
+    private String[] projection = {"_id", "year", "month", "day", "content", "firstOrder", "secondOrder", "progress"};
 
     //사용하진 않지만 SQLiteOpenHelper 상속하면 무조건 구현해야 됨
     @Override
@@ -35,14 +37,19 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void showResult(Cursor cursor) {
-        int monthCol = cursor.getColumnIndex("month");
-        int dayCol = cursor.getColumnIndex("day");
-        while(cursor.moveToNext()) {
-            int month = cursor.getInt(monthCol);
-            int day = cursor.getInt(dayCol);
-            //show;
+    public int getMaxId(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("plans", new String[]{"MAX(_id) as id"}, null, null, null, null, null);
+        int id=0;
+        if (cursor != null) {
+            int idCol = cursor.getColumnIndex("id");
+            while(cursor.moveToNext()) {
+               id = cursor.getInt(idCol);
+            }
+            cursor.close();
         }
+        this.close();
+        return id;
     }
 
     public void insert(int year, int month, int day, String content, String firstOrder, String secondOrder, String progress) {
@@ -61,28 +68,52 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void queryMonth(int year, int month) {
-        if(year>0 && month>0) {
-            SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor = db.query("plans", projection, "year=? and month=?", new String[]{Integer.toString(year), Integer.toString(month)}, null, null, null);
-            if (cursor != null) {
-                showResult(cursor);
-                cursor.close();
-            }
-            this.close();
-        }
-    }
+//    public ArrayList<DayData> queryMonth(int year, int month) {
+//        if(year>0 && month>0) {
+//            SQLiteDatabase db = this.getReadableDatabase();
+//            Cursor cursor = db.query("plans", projection, "year=? and month=?", new String[]{Integer.toString(year), Integer.toString(month)}, null, null, null);
+//            if (cursor != null) {
+//                while(cursor.moveToNext()) {
+//                    int _idVal = cursor.getInt(cursor.getColumnIndex("_id"));
+//                    int yearVal = cursor.getInt(cursor.getColumnIndex("year"));
+//                    int monthVal = cursor.getInt(cursor.getColumnIndex("month"));
+//                    int dayVal = cursor.getInt(cursor.getColumnIndex("day"));
+//                    String progressVal = cursor.getString(cursor.getColumnIndex("progress"));
+//                    String firstOrderVal = cursor.getString(cursor.getColumnIndex("firstOrder"));
+//                    int secondOrderVal = cursor.getInt(cursor.getColumnIndex("secondOrder"));
+//                    String contentVal = cursor.getString(cursor.getColumnIndex("content"));
+//
+//                    plans.add(new PlanData(_idVal, yearVal, monthVal, dayVal,  progressVal, firstOrderVal, secondOrderVal, contentVal));
+//                }
+//                cursor.close();
+//            }
+//            this.close();
+//        }
+//    }
 
-    public void queryDay(int year, int month, int day) {
+    public ArrayList<PlanData> queryDay(int year, int month, int day) {
+        ArrayList<PlanData> plans = new ArrayList<PlanData>();
         if(year>0 && month>0 && day>0) {
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.query("plans", projection, "year=? and month=? and day=?", new String[]{Integer.toString(year), Integer.toString(month), Integer.toString(day)}, null, null, null);
             if (cursor != null) {
-                showResult(cursor);
+                while(cursor.moveToNext()) {
+                    int _idVal = cursor.getInt(cursor.getColumnIndex("_id"));
+                    int yearVal = cursor.getInt(cursor.getColumnIndex("year"));
+                    int monthVal = cursor.getInt(cursor.getColumnIndex("month"));
+                    int dayVal = cursor.getInt(cursor.getColumnIndex("day"));
+                    String progressVal = cursor.getString(cursor.getColumnIndex("progress"));
+                    String firstOrderVal = cursor.getString(cursor.getColumnIndex("firstOrder"));
+                    int secondOrderVal = cursor.getInt(cursor.getColumnIndex("secondOrder"));
+                    String contentVal = cursor.getString(cursor.getColumnIndex("content"));
+
+                    plans.add(new PlanData(_idVal, yearVal, monthVal, dayVal,  progressVal, firstOrderVal, secondOrderVal, contentVal));
+                }
                 cursor.close();
             }
             this.close();
         }
+        return plans;
     }
 
     public void updata(int _id, int year, int month, int day, String content, String firstOrder, String secondOrder, String progress) {

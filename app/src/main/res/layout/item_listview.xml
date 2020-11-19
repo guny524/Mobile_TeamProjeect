@@ -5,8 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="#FF7E7E">
-<!--    android:descendantFocusability="blocksDescendants" >-->
-    <!--focus를 빼줘야 ListView를 custom Adapter로 만들 때 클릭 가능-->
 
     <Button
         android:id="@+id/btProgress"
@@ -18,7 +16,7 @@
         android:text="진행\n상황" />
 
     <Button
-        android:id="@+id/btHighOrder"
+        android:id="@+id/btHigh"
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
@@ -27,7 +25,7 @@
         android:text="상위\n순위" />
 
     <Button
-        android:id="@+id/btLowOrder"
+        android:id="@+id/btLow"
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
