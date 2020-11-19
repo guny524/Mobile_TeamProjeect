@@ -19,6 +19,7 @@ import static com.example.teamproject.R.layout.item_listview;
 public class PlannerAdapter extends ArrayAdapter<String> {
 
     private final ArrayList<String> list;
+    private DBHelper dbHelper;
 
     PlannerAdapter(Context context, int resource, ArrayList<String> list){
         super(context, resource, list);
@@ -30,7 +31,7 @@ public class PlannerAdapter extends ArrayAdapter<String> {
         return list.get(position);
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final Context context = parent.getContext();
 
         if (convertView == null) {
@@ -39,9 +40,9 @@ public class PlannerAdapter extends ArrayAdapter<String> {
         }
         final View finalConvertView = convertView;
 
-        String list = this.getItem(position);
+        String text = this.getItem(position);
         TextView textView = convertView.findViewById(R.id.etContent);
-        textView.setText(list);
+        textView.setText(text);
 
         final Button btHigh = convertView.findViewById(R.id.btHigh);
         btHigh.setOnClickListener(new Button.OnClickListener() {
@@ -69,16 +70,16 @@ public class PlannerAdapter extends ArrayAdapter<String> {
         btProgress.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(context, finalConvertView);
+                PopupMenu popup = new PopupMenu(view.getContext(), finalConvertView);
                 popup.inflate(R.menu.menu_progress);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {//눌러진 MenuItem의 Item Id를 얻어와 식별
-                            case R.id.skip: btHigh.setText("-"); return true;
-                            case R.id.finish: btHigh.setText("V"); return true;
-                            case R.id.now: btHigh.setText("*"); return true;
-                            case R.id.next: btHigh.setText("->"); return true;
+                            case R.id.skip: btProgress.setText("-"); return true;
+                            case R.id.finish: btProgress.setText("V"); return true;
+                            case R.id.now: btProgress.setText("*"); return true;
+                            case R.id.next: btProgress.setText("->"); return true;
                             default: return false;
                         }
                     }
@@ -87,6 +88,13 @@ public class PlannerAdapter extends ArrayAdapter<String> {
             }
         });
 
+        final Button btRemove = convertView.findViewById(R.id.btRemove); //텍스트창을 선택한 상태에서 삭제버튼을 누르고 체크를 누르면 삭제됨
+        btRemove.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                list.remove(getItem(position));
+            }
+        });
         return convertView;
     }
 }

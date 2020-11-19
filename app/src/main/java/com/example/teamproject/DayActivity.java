@@ -40,7 +40,7 @@ public class DayActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TextView textView=(TextView)findViewById(R.id.etContent);
-                planList.add("입력");
+                planList.add("");//아무것도 안보이게 만듦
                 adapter.notifyDataSetChanged();
             }
         });
