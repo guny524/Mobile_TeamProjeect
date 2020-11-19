@@ -7,15 +7,49 @@
     android:orientation="vertical"
     android:background="@color/colorWhite">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:background="@color/colorAccent"
-        android:textSize="20sp"
-        android:textColor="@color/colorWhite" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="40dp"
+        android:layout_width="fill_parent">
+
+        <Button
+            android:id="@+id/prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prev" />
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="0000-00"
+            android:id="@+id/tvTitle" />
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next" />
+
+    </LinearLayout>
+<!--    <TextView-->
+<!--        android:id="@+id/tvTitle"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:background="@color/colorAccent"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textColor="@color/colorWhite" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,12 +67,14 @@
             android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:text="월" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/colorBlack"
-            android:text="화" />
+            android:text="화"
+            android:textColor="@color/colorBlack" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
