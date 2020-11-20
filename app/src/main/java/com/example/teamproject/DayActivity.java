@@ -64,6 +64,17 @@ public class DayActivity extends AppCompatActivity {
                 plannerAdapter.notifyDataSetChanged();
             }
         });
+
+
+        Button finishBtn = findViewById(R.id.finish);
+        finishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                Intent intent = new Intent(DayActivity.this, CalendarActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }
