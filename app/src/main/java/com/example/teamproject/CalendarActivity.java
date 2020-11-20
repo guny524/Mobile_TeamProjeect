@@ -16,103 +16,88 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class CalendarActivity extends Activity implements View.OnClickListener{
+public class CalendarActivity extends Activity {
 
-    // 오늘 날짜를 세팅 해준다.
-
-    Calendar calendar = Calendar.getInstance();
-    Date currentTime = calendar.getTime();
-
-    //연,월,일을 따로 저장
-    String curDate = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(currentTime);
-    int curYear = Integer.parseInt(curDate.substring(0, 4));
-    int curMonth = Integer.parseInt(curDate.substring(4, 6));
-    int curDay = Integer.parseInt(curDate.substring(6, 8));
-
-    GridView gridView;
-    TextView tvDate;
-
+    final ArrayList<DayData> dayList = new ArrayList<DayData>();
+    //gridView에 setOnClickItem에서 접근해야해서 멤버
+    Calendar calendar;//setCalendar에 접근해야해서 멤버
+    //표시할 날짜 preNth, NextMth 리스너에서 접근해야 해서 멤버
+    int displayYear;
+    int displayMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        Button nextMth = (Button)findViewById(R.id.next);
-        nextMth.setOnClickListener(this);
+        // 오늘 날짜를 가져온다.
+        this.calendar = Calendar.getInstance();
+        final Date currentTime = calendar.getTime();
+        //연,월,일을 따로 저장
+        final String curDate = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(currentTime);
+        final int curYear = Integer.parseInt(curDate.substring(0, 4));
+        final int curMonth = Integer.parseInt(curDate.substring(4, 6));
+        final int curDay = Integer.parseInt(curDate.substring(6, 8));
+        //현재 날짜는 따로 저장, 표시할 날짜와 다름
 
-        Button prevMth = (Button)findViewById(R.id.prev);
-        prevMth.setOnClickListener(this);
+        //표시할 날짜를 현재 날짜로 업데이트
+        displayYear = curYear;
+        displayMonth = curMonth;
+        //현재날짜 보여주기
+        setCalendar(displayYear, displayMonth);
 
-        //현재 날짜 텍스트뷰에 뿌려줌
-        tvDate = (TextView)findViewById(R.id.tvTitle);
-        tvDate.setText(curYear + "년 " + curMonth+"월");
+        //날짜 변경 리스너 달아주기
+        //리스너에서 접근해야해서 display날짜 변수들을 엑티비티 멤버로 선언함, oncreate 끝나고도 살아있어야해서 멤버로
+        Button nextMth = findViewById(R.id.next);
+        nextMth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (displayMonth < 12) {
+                    displayMonth++;
+                } else {
+                    displayYear++;
+                    displayMonth = 1;
+                }
+                setCalendar(displayYear, displayMonth);
+            }
+        });
 
-
-        setCalendarDay(curYear,curMonth, curDay);
-
-
+        Button prevMth = findViewById(R.id.prev);
+        prevMth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (displayMonth > 1) {
+                    displayMonth--;
+                } else {
+                    displayYear--;
+                    displayMonth = 12;
+                }
+                setCalendar(displayYear, displayMonth);
+            }
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void setCalendar(final int year, final int month) {
+        //날짜 텍스트뷰에 뿌려줌
+        TextView tvTitle = (TextView)findViewById(R.id.tvTitle);
+        tvTitle.setText(year + "/" + month);
 
-            case R.id.prev:
-
-                if (curMonth > 1) {
-
-                    curMonth--;
-                    setCalendarDay(curYear,curMonth, curDay);
-                } else {
-
-                    curYear--;
-                    curMonth = 12;
-                    setCalendarDay(curYear,  curMonth,curDay);
-                }
-
-                break;
-
-            case R.id.next:
-                if (curMonth < 12) {
-                    curMonth++;
-                    setCalendarDay(curYear, curMonth, curDay);
-                } else {
-                    curYear++;
-                    curMonth = 1;
-                    setCalendarDay(curYear,  curMonth,curDay);
-                }
-
-
-        }
-    }
-
-    public void setCalendarDay(int curYear, int curMonth, int curDay){
-
-        //weekday gridView 요일 표시
-        //ArrayList<String> dayList = new ArrayList<String>(Arrays.asList("일","월","화","수","목","금","토"));
-        //그냥 xml로 때려 박음
-
-        final ArrayList<DayData> dayList = new ArrayList<DayData>();
-
-        ///이번달 1일 무슨 요일인지 계산 0이 1월로 취급됨
-        calendar.set(curYear, curMonth-1, 1);
-
+        //이번 달 1일 무슨 요일인지 계산 0이 1월로 취급됨
+        calendar.set(year, month-1, 1);
         final int weekday = calendar.get(Calendar.DAY_OF_WEEK)-1;
 
-
         //이번 달 마지막 날 계산
-        calendar.set(Calendar.MONTH,curMonth-1); //다시 원래 날짜로 바꿈 //Calendar 객체가 싱글턴이라서 다른데서 쓸 때 헷갈림
-        final int maxDay = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
-
+        //다시 원래 날짜로 바꿈 //Calendar 객체가 싱글턴이라서
+        calendar.set(Calendar.MONTH, month-1);
+        final int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         DBHelper dbHelper = new DBHelper(this);
+        dayList.clear();
 
-        //공백 빈칸 음수에서 시작하면 그날 day랑 index 맞음
         //일별로 DB에서 내용 받아와서 추가
+        //공백 빈칸 음수에서 시작하면 그날 day랑 index 맞음
         for (int dayIndex = 1-weekday; dayIndex <= maxDay; dayIndex++) {
-            ArrayList<PlanData> plans = dbHelper.queryDay(curYear, curMonth, dayIndex);
+            ArrayList<PlanData> plans = dbHelper.queryDay(year, month, dayIndex);
             if(dayIndex > 0) {
                 dayList.add(new DayData(dayIndex, plans));
             } else {
@@ -120,22 +105,20 @@ public class CalendarActivity extends Activity implements View.OnClickListener{
             }
         }
 
-
-        gridView = findViewById(R.id.gvContent);
+        final GridView gridView = findViewById(R.id.gvContent);
         gridView.setOnItemClickListener(new GridView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View item, int position, long id) {
-                //layout에서 descendantFocusability를 설정하지 않으면 작동 안 함
-                DayData monthData = dayList.get(position);
-                startActivity(new Intent(CalendarActivity.this, DayActivity.class));
+                DayData dayData = dayList.get(position);
+
+                Intent intent = new Intent(CalendarActivity.this, DayActivity.class);
+                intent.putExtra("year", year);
+                intent.putExtra("month", month);
+                intent.putExtra("day", dayData.getDay());
+                startActivity(intent);
             }
         });
-
-        tvDate.setText(curYear + "년 " + curMonth+"월");
-        GridView gridView = findViewById(R.id.gvContent);
-        gridView.setAdapter(new GridAdapter(getApplicationContext(), R.layout.item_gridview, dayList, calendar));
-        System.out.println(curYear+"년"+curMonth+"월"+curDay+"일");
-
+        GridAdapter gridAdapter = new GridAdapter(getApplicationContext(), R.layout.item_gridview, dayList, calendar);
+        gridView.setAdapter(gridAdapter);
     }
-
 }

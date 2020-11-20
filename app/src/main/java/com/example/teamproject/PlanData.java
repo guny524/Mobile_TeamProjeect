@@ -1,10 +1,10 @@
 package com.example.teamproject;
 
 public class PlanData {
-    private int _id, year, month, day, secondOrder;
-    private String progress, firstOrder, content;
+    private int _id, year, month, day;
+    private String progress, firstOrder, secondOrder, content;
 
-    public PlanData(int _id, int year, int month, int day, String progress, String firstOrder, int secondOrder, String content) {
+    public PlanData(int _id, int year, int month, int day, String progress, String firstOrder, String secondOrder, String content) {
         this._id = _id;
         this.year = year;
         this.month = month;
@@ -21,7 +21,7 @@ public class PlanData {
     public int getDay() { return day; }
     public String getProgress() { return progress; }
     public String getFirstOrder() { return firstOrder; }
-    public int getSecondOrder() { return secondOrder; }
+    public String getSecondOrder() { return secondOrder; }
     public String getContent() { return content; }
 
     public void setYear(int year) { this.year = year;}
@@ -29,6 +29,6 @@ public class PlanData {
     public void setDay(int day) { this.day = day;}
     public void setProgress(String progress) { this.progress = progress;}
     public void setFirstOrder(String firstOrder) { this.firstOrder = firstOrder;}
-    public void setSecondOrder(int secondOrder) { this.secondOrder = secondOrder;}
+    public void setSecondOrder(String secondOrder) { this.secondOrder = secondOrder;}
     public void setContent(String content) { this.content = content;}
 }

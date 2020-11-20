@@ -30,7 +30,7 @@
                     android:orientation="vertical">
 
                         <ListView
-                            android:id="@+id/lvDay"
+                            android:id="@+id/lvPlans"
                             android:layout_width="wrap_content"
                             android:layout_height="332dp"
                             android:layout_margin="20dp"

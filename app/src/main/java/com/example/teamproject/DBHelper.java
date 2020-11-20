@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "day INTEGER NOT NULL," +
                 "content TEXT," +
                 "firstOrder TEXT," +
-                "seconOrder INTEGER," +
+                "secondOrder TEXT," +
                 "progress TEXT);");
     }
 
@@ -35,6 +35,31 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS plans");
         onCreate(db);
+    }
+
+    public ArrayList<PlanData> queryDay(int year, int month, int day) {
+        ArrayList<PlanData> plans = new ArrayList<PlanData>();
+        if(year>0 && month>0 && day>0) {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.query("plans", projection, "year=? and month=? and day=?", new String[]{Integer.toString(year), Integer.toString(month), Integer.toString(day)}, null, null, null);
+            if (cursor != null) {
+                while(cursor.moveToNext()) {
+                    int _idVal = cursor.getInt(cursor.getColumnIndex("_id"));
+                    int yearVal = cursor.getInt(cursor.getColumnIndex("year"));
+                    int monthVal = cursor.getInt(cursor.getColumnIndex("month"));
+                    int dayVal = cursor.getInt(cursor.getColumnIndex("day"));
+                    String progressVal = cursor.getString(cursor.getColumnIndex("progress"));
+                    String firstOrderVal = cursor.getString(cursor.getColumnIndex("firstOrder"));
+                    String secondOrderVal = cursor.getString(cursor.getColumnIndex("secondOrder"));
+                    String contentVal = cursor.getString(cursor.getColumnIndex("content"));
+
+                    plans.add(new PlanData(_idVal, yearVal, monthVal, dayVal,  progressVal, firstOrderVal, secondOrderVal, contentVal));
+                }
+                cursor.close();
+            }
+            this.close();
+        }
+        return plans;
     }
 
     public int getMaxId(){
@@ -68,66 +93,18 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-//    public ArrayList<DayData> queryMonth(int year, int month) {
-//        if(year>0 && month>0) {
-//            SQLiteDatabase db = this.getReadableDatabase();
-//            Cursor cursor = db.query("plans", projection, "year=? and month=?", new String[]{Integer.toString(year), Integer.toString(month)}, null, null, null);
-//            if (cursor != null) {
-//                while(cursor.moveToNext()) {
-//                    int _idVal = cursor.getInt(cursor.getColumnIndex("_id"));
-//                    int yearVal = cursor.getInt(cursor.getColumnIndex("year"));
-//                    int monthVal = cursor.getInt(cursor.getColumnIndex("month"));
-//                    int dayVal = cursor.getInt(cursor.getColumnIndex("day"));
-//                    String progressVal = cursor.getString(cursor.getColumnIndex("progress"));
-//                    String firstOrderVal = cursor.getString(cursor.getColumnIndex("firstOrder"));
-//                    int secondOrderVal = cursor.getInt(cursor.getColumnIndex("secondOrder"));
-//                    String contentVal = cursor.getString(cursor.getColumnIndex("content"));
-//
-//                    plans.add(new PlanData(_idVal, yearVal, monthVal, dayVal,  progressVal, firstOrderVal, secondOrderVal, contentVal));
-//                }
-//                cursor.close();
-//            }
-//            this.close();
-//        }
-//    }
-
-    public ArrayList<PlanData> queryDay(int year, int month, int day) {
-        ArrayList<PlanData> plans = new ArrayList<PlanData>();
-        if(year>0 && month>0 && day>0) {
-            SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor = db.query("plans", projection, "year=? and month=? and day=?", new String[]{Integer.toString(year), Integer.toString(month), Integer.toString(day)}, null, null, null);
-            if (cursor != null) {
-                while(cursor.moveToNext()) {
-                    int _idVal = cursor.getInt(cursor.getColumnIndex("_id"));
-                    int yearVal = cursor.getInt(cursor.getColumnIndex("year"));
-                    int monthVal = cursor.getInt(cursor.getColumnIndex("month"));
-                    int dayVal = cursor.getInt(cursor.getColumnIndex("day"));
-                    String progressVal = cursor.getString(cursor.getColumnIndex("progress"));
-                    String firstOrderVal = cursor.getString(cursor.getColumnIndex("firstOrder"));
-                    int secondOrderVal = cursor.getInt(cursor.getColumnIndex("secondOrder"));
-                    String contentVal = cursor.getString(cursor.getColumnIndex("content"));
-
-                    plans.add(new PlanData(_idVal, yearVal, monthVal, dayVal,  progressVal, firstOrderVal, secondOrderVal, contentVal));
-                }
-                cursor.close();
-            }
-            this.close();
-        }
-        return plans;
-    }
-
-    public void updata(int _id, int year, int month, int day, String content, String firstOrder, String secondOrder, String progress) {
-        if(year>0 && month>0 && day>0) {
+    public void update(PlanData plan) {
+        if(plan.getYear()>0 && plan.getMonth()>0 && plan.getDay()>0) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put("year", year);
-            values.put("month", month);
-            values.put("day", day);
-            values.put("content", content);
-            values.put("firstOrder", firstOrder);
-            values.put("secondOrder", secondOrder);
-            values.put("progress", progress);
-            db.update("plans", values, "_id=?", new String[]{Integer.toString(_id)});
+            values.put("year", plan.getYear());
+            values.put("month", plan.getMonth());
+            values.put("day", plan.getDay());
+            values.put("content", plan.getContent());
+            values.put("firstOrder", plan.getFirstOrder());
+            values.put("secondOrder", plan.getSecondOrder());
+            values.put("progress", plan.getProgress());
+            db.update("plans", values, "_id=?", new String[]{Integer.toString(plan.getId())});
             this.close();
         }
     }

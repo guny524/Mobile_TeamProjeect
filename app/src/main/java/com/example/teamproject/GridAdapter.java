@@ -59,7 +59,7 @@ public class GridAdapter extends ArrayAdapter {
         ArrayList<PlanData> plans = dayData.getPlans();
         for( int i=1; i<=3; i++) {  //xml에 있는 3개 tv 찾아서 설정해줄거임
             TextView tv = convertView.findViewById(context.getResources().getIdentifier("tv" + i, "id", context.getPackageName()));
-            if(plans==null || plans.size() == 0) {  //내용 없는 경우
+            if(plans==null || plans.isEmpty() == true) {  //내용 없는 경우
                 tv.setVisibility(View.INVISIBLE);
             } else if(i <= plans.size()) {
                 tv.setText(plans.get(i-1).getContent());
@@ -67,10 +67,10 @@ public class GridAdapter extends ArrayAdapter {
                 tv.setVisibility(View.INVISIBLE);
             }
         }
-//        if(plans.size() > 3) {
-//            TextView tv = convertView.findViewById(R.id.tv3);
-//            tv.setText("...");
-//        }
+        if(plans!=null && plans.size() > 3) {
+            TextView tv = convertView.findViewById(R.id.tv3);
+            tv.setText("...");
+        }
 
         return convertView;
     }
