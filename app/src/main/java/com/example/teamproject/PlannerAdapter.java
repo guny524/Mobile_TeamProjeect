@@ -1,6 +1,7 @@
 package com.example.teamproject;
 
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,6 +124,15 @@ public class PlannerAdapter extends ArrayAdapter<PlanData> {
                     }
                 });
                 popup.show();
+            }
+        });
+
+        etContent.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                plan.setContent(etContent.getText().toString());
+                dbHelper.update(plan);
+                return true;
             }
         });
 
