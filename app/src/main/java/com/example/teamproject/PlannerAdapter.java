@@ -133,6 +133,7 @@ public class PlannerAdapter extends ArrayAdapter<PlanData> {
                 PlanData plan = getItem(position);
                 list.remove(plan);
                 dbHelper.delete(plan.getId());
+                notifyDataSetChanged();
             }
         });
         return convertView;
