@@ -2,6 +2,32 @@ https://github.com/guny524/Mobile_TeamProjeect.git
 
 백소현
 - 일별ui 어댑터 display로 
+## 구현 내용
+
+- 캘린더 페이지
+
+	 - 파일명 : activity_calendar.xml, CalendarActivity.java
+
+	- 버튼 클릭 하면 월 이동
+		- prevButton 누르면 이전 달로 변경, setCalendarDay() 연결해 curMonth 기준으로 Database 받아옴
+		- nextButton 누르면 다음 달로 변경, setCalendarDay() 연결해 curMonth 기준으로 Database 받아옴
+
+
+- 플래너 페이지
+
+	- 파일명 : DayActivity.java,  activity_day.xml, PlannerAdapter.java, item_listview.xml, menu_high.xml, menu_progress.xml
+
+	- 페이지는 CalendarActivity 위에 activity_day.xml을 display로 띄워줌
+	
+	- 버튼을 누르면 플래너 아이템 추가
+		- btAdd: btAdd 클릭 시 ListView(activity_day.xml) 에 item Layout (item_listview.xml) 추가 
+		- lvDay : PlannerAdapter로 부터 전달받은 데이터 ListView에 표시
+
+	- 상위 순위, 하위 순위 버튼 누르면 옵션 메뉴 표시 
+		- menu_high.xml : 상위 순위 옵션메뉴
+		- menu_progress.xml : 진행 상황 옵션메뉴
+		- btHigh 클릭 시 menu_high.xml 상위 순위 옵션메뉴 표시, 선택시 선택된 MenuItem 값으로 btHigh.setText 변경
+		- btProgress 클릭 시 menu_progress.xml 진행 상황 옵션메뉴 표시, 선택시 선택된 MenuItem 값으로 btProgress.setText 변경
 
 김태완
 - gridadapter로 
