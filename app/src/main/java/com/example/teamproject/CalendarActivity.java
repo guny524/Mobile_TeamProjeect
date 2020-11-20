@@ -47,7 +47,7 @@ public class CalendarActivity extends Activity implements View.OnClickListener{
 
         //현재 날짜 텍스트뷰에 뿌려줌
         tvDate = (TextView)findViewById(R.id.tvTitle);
-        tvDate.setText(curYear + "/" + curMonth);
+        tvDate.setText(curYear + "년 " + curMonth+"월");
 
 
         setCalendarDay(curYear,curMonth, curDay);
@@ -55,7 +55,7 @@ public class CalendarActivity extends Activity implements View.OnClickListener{
 
     }
 
-        @Override
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
 
@@ -131,7 +131,7 @@ public class CalendarActivity extends Activity implements View.OnClickListener{
             }
         });
 
-        tvDate.setText(curYear + "/" + curMonth);
+        tvDate.setText(curYear + "년 " + curMonth+"월");
         GridView gridView = findViewById(R.id.gvContent);
         gridView.setAdapter(new GridAdapter(getApplicationContext(), R.layout.item_gridview, dayList, calendar));
         System.out.println(curYear+"년"+curMonth+"월"+curDay+"일");

@@ -8,37 +8,49 @@
     android:background="@color/colorWhite">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="40dp"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="79dp"
+        android:background="#9CB3EC"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/prev"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/prev" />
+            android:layout_gravity="center"
+            android:background="#9CB3EC"
+            android:text="@string/prev"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <TextView
-            android:layout_height="wrap_content"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="0000-00"
-            android:id="@+id/tvTitle" />
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next" />
+            android:layout_gravity="center"
+            android:background="#9CB3EC"
+            android:text="@string/next"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
 
     </LinearLayout>
 <!--    <TextView-->
@@ -53,25 +65,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" >
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/colorRed"
-            android:text="일" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"
-            android:text="월" />
+        android:layout_height="21dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:baselineAligned="false">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
+            android:text="일"
+            android:textColor="@color/colorRed" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="월"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="화"
             android:textColor="@color/colorBlack" />
 
@@ -79,34 +98,49 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/colorBlack"
-            android:text="수" />
+            android:gravity="center"
+            android:text="수"
+            android:textColor="@color/colorBlack" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/colorBlack"
-            android:text="목" />
+            android:gravity="center"
+            android:text="목"
+            android:textColor="@color/colorBlack" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/colorBlack"
-            android:text="금" />
+            android:gravity="center"
+            android:text="금"
+            android:textColor="@color/colorBlack" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/colorBlue"
-            android:text="토" />
+            android:gravity="center"
+            android:text="토"
+            android:textColor="@color/colorBlue" />
     </LinearLayout>
 
     <GridView
+        android:background="@drawable/calendar_line"
         android:id="@+id/gvContent"
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:numColumns="7"
         android:layout_weight="15"
-        android:listSelector="@color/transparent" />
+        android:listSelector="@color/transparent"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:background="#9CB3EC"
+        android:orientation="horizontal"></LinearLayout>
 
 </LinearLayout>
