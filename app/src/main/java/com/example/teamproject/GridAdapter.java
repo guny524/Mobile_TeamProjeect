@@ -67,10 +67,10 @@ public class GridAdapter extends ArrayAdapter {
                 tv.setVisibility(View.INVISIBLE);
             }
         }
-        if(plans.size() > 3) {
-            TextView tv = convertView.findViewById(R.id.tv3);
-            tv.setText("...");
-        }
+//        if(plans.size() > 3) {
+//            TextView tv = convertView.findViewById(R.id.tv3);
+//            tv.setText("...");
+//        }
 
         return convertView;
     }
