@@ -65,7 +65,6 @@ public class DayActivity extends AppCompatActivity {
             }
         });
 
-
         Button finishBtn = findViewById(R.id.finish);
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override

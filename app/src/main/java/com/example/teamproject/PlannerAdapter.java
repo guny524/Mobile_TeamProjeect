@@ -1,6 +1,8 @@
 package com.example.teamproject;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -127,12 +129,20 @@ public class PlannerAdapter extends ArrayAdapter<PlanData> {
             }
         });
 
-        etContent.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+        etContent.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //입력되는 텍스트에 변화가 있을 때
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //입력이 끝났을 때
                 plan.setContent(etContent.getText().toString());
                 dbHelper.update(plan);
-                return true;
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //입력하기 전에
             }
         });
 
