@@ -62,7 +62,13 @@ public class GridAdapter extends ArrayAdapter {
             if(plans==null || plans.isEmpty() == true) {  //내용 없는 경우
                 tv.setVisibility(View.INVISIBLE);
             } else if(i <= plans.size()) {
-                tv.setText(plans.get(i-1).getContent());
+                //7자 넘어가면 줄 넘어서 밑으로 내려가니까 잘라줌
+                String content = plans.get(i-1).getContent();
+                if(content.length() >= 7) {
+                    tv.setText(content.substring(0,7));
+                } else {
+                    tv.setText(content);
+                }
             } else {
                 tv.setVisibility(View.INVISIBLE);
             }
