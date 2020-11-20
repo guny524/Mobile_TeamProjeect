@@ -1,6 +1,6 @@
 package com.example.teamproject;
 
-public class PlanData {
+public class PlanData implements Comparable<PlanData> {
     private int _id, year, month, day;
     private String progress, firstOrder, secondOrder, content;
 
@@ -13,6 +13,13 @@ public class PlanData {
         this.firstOrder = firstOrder;
         this.secondOrder = secondOrder;
         this.content = content;
+    }
+
+    @Override
+    public int compareTo(PlanData plan) {
+        int first = this.firstOrder.compareTo(plan.firstOrder);
+        if(first==0) return this.secondOrder.compareTo(plan.secondOrder);
+        else return first;
     }
 
     public int getId() { return _id; }

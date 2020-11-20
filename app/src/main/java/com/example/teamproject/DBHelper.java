@@ -41,7 +41,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<PlanData> plans = new ArrayList<PlanData>();
         if(year>0 && month>0 && day>0) {
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor = db.query("plans", projection, "year=? and month=? and day=?", new String[]{Integer.toString(year), Integer.toString(month), Integer.toString(day)}, null, null, null);
+            Cursor cursor = db.query("plans", projection, "year=? and month=? and day=?", new String[]{Integer.toString(year), Integer.toString(month), Integer.toString(day)}, null, null, "firstOrder, secondOrder");
             if (cursor != null) {
                 while(cursor.moveToNext()) {
                     int _idVal = cursor.getInt(cursor.getColumnIndex("_id"));

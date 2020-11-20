@@ -64,7 +64,7 @@ public class GridAdapter extends ArrayAdapter {
             } else if(i <= plans.size()) {
                 //7자 넘어가면 줄 넘어서 밑으로 내려가니까 잘라줌
                 String content = plans.get(i-1).getContent();
-                if(content.length() >= 7) {
+                if(content!=null && content.length() >= 7) {
                     tv.setText(content.substring(0,7));
                 } else {
                     tv.setText(content);
