@@ -6,4 +6,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorBlue">#0000FF</color>
+    <color name="colorRedLite">#B85555</color>
 </resources>
